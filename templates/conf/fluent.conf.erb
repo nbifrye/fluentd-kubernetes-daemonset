@@ -404,7 +404,46 @@
 <match **>
   @type datadog
   @id out_datadog
+  @log_level info
+  include_tag_key "#{ENV['FLUENT_DATADOG_INCLUDE_TAG_KEY'] || 'true'}"
+  tag_key "#{ENV['FLUENT_DATADOG_TAG_KEY'] || 'tag'}"
+  timestamp_key "#{ENV['FLUENT_DATADOG_TIMESTAMP_KEY'] || '@timestamp'}"
+
   api_key "#{ENV['DD_API_KEY']}"
+
+  # Endpoint — switch region via DD_SITE (e.g. datadoghq.com, datadoghq.eu,
+  # us3.datadoghq.com, us5.datadoghq.com, ap1.datadoghq.com).
+  # FLUENT_DATADOG_HOST takes precedence if set.
+  host "#{ENV['FLUENT_DATADOG_HOST'] || 'http-intake.logs.' + (ENV['DD_SITE'] || 'datadoghq.com')}"
+  use_ssl "#{ENV['FLUENT_DATADOG_USE_SSL'] || 'true'}"
+  ssl_port "#{ENV['FLUENT_DATADOG_SSL_PORT'] || '443'}"
+  no_ssl_validation "#{ENV['FLUENT_DATADOG_NO_SSL_VALIDATION'] || 'false'}"
+
+  use_http "#{ENV['FLUENT_DATADOG_USE_HTTP'] || 'true'}"
+  use_compression "#{ENV['FLUENT_DATADOG_USE_COMPRESSION'] || 'true'}"
+  compression_level "#{ENV['FLUENT_DATADOG_COMPRESSION_LEVEL'] || '6'}"
+  http_proxy "#{ENV['FLUENT_DATADOG_HTTP_PROXY'] || use_nil}"
+
+  max_retries "#{ENV['FLUENT_DATADOG_MAX_RETRIES'] || '-1'}"
+  max_backoff "#{ENV['FLUENT_DATADOG_MAX_BACKOFF'] || '30'}"
+
+  dd_source "#{ENV['DD_SOURCE'] || use_nil}"
+  dd_sourcecategory "#{ENV['DD_SOURCE_CATEGORY'] || use_nil}"
+  dd_tags "#{ENV['DD_TAGS'] || use_nil}"
+  dd_hostname "#{ENV['DD_HOSTNAME'] || use_nil}"
+  service "#{ENV['DD_SERVICE'] || use_nil}"
+
+  <buffer>
+    @type "#{ENV['FLUENT_DATADOG_BUFFER_TYPE'] || 'memory'}"
+    flush_thread_count "#{ENV['FLUENT_DATADOG_BUFFER_FLUSH_THREAD_COUNT'] || '1'}"
+    flush_mode "#{ENV['FLUENT_DATADOG_BUFFER_FLUSH_MODE'] || 'interval'}"
+    flush_interval "#{ENV['FLUENT_DATADOG_BUFFER_FLUSH_INTERVAL'] || '5s'}"
+    chunk_limit_size "#{ENV['FLUENT_DATADOG_BUFFER_CHUNK_LIMIT_SIZE'] || '2M'}"
+    total_limit_size "#{ENV['FLUENT_DATADOG_BUFFER_TOTAL_LIMIT_SIZE'] || '512M'}"
+    retry_max_interval "#{ENV['FLUENT_DATADOG_BUFFER_RETRY_MAX_INTERVAL'] || '30'}"
+    retry_timeout "#{ENV['FLUENT_DATADOG_BUFFER_RETRY_TIMEOUT'] || '72h'}"
+    retry_forever "#{ENV['FLUENT_DATADOG_BUFFER_RETRY_FOREVER'] || 'false'}"
+  </buffer>
 </match>
 
 <% end %>

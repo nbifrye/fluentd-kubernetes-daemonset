@@ -32,6 +32,20 @@ spec:
                 fieldPath: spec.nodeName
           - name: DD_API_KEY
             value: your-api-key
+          # Datadog site. Leave unset (or set to datadoghq.com) for US1.
+          # Examples: datadoghq.eu, us3.datadoghq.com, us5.datadoghq.com, ap1.datadoghq.com
+          # - name: DD_SITE
+          #   value: "datadoghq.com"
+          # - name: DD_SOURCE
+          #   value: "kubernetes"
+          # - name: DD_SERVICE
+          #   value: "fluentd"
+          # - name: DD_TAGS
+          #   value: "env:prod,team:platform"
+          # - name: DD_HOSTNAME
+          #   valueFrom:
+          #     fieldRef:
+          #       fieldPath: spec.nodeName
         resources:
           limits:
             memory: 200Mi

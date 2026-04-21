@@ -56,7 +56,7 @@ GEM
       fluentd (> 1.0.0, < 2)
     fluent-plugin-concat (2.6.1)
       fluentd (>= 0.14.0, < 2)
-    fluent-plugin-datadog (0.14.4)
+    fluent-plugin-datadog (0.15.0)
       fluentd (>= 1, < 2)
       net-http-persistent (~> 4.0.1)
     fluent-plugin-detect-exceptions (0.0.16)
@@ -202,7 +202,7 @@ PLATFORMS
 DEPENDENCIES
   ffi
   fluent-plugin-concat (~> 2.6.0)
-  fluent-plugin-datadog (~> 0.14.4)
+  fluent-plugin-datadog (~> 0.15.0)
   fluent-plugin-detect-exceptions (~> 0.0.16)
   fluent-plugin-grok-parser (~> 2.6.2)
   fluent-plugin-json-in-json-2 (>= 1.0.2)
