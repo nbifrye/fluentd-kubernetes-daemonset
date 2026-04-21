@@ -32,6 +32,22 @@ spec:
                 fieldPath: spec.nodeName
           - name: DD_API_KEY
             value: your-api-key
+          # Optional: Datadog site / intake endpoint (default: http-intake.logs.datadoghq.com).
+          # For EU: http-intake.logs.datadoghq.eu, US3: http-intake.logs.us3.datadoghq.com, etc.
+          # - name: DD_SITE
+          #   value: http-intake.logs.datadoghq.com
+          # - name: DD_SOURCE
+          #   value: kubernetes
+          # - name: DD_SERVICE
+          #   value: my-service
+          # - name: DD_TAGS
+          #   value: "env:prod,team:platform"
+          # - name: DD_HOSTNAME
+          #   value: my-cluster
+          # Remove kubernetes/docker attributes from log records after they have been
+          # extracted into Datadog tags (added in fluent-plugin-datadog 0.15.0).
+          # - name: DD_DELETE_EXTRACTED_TAG_ATTRIBUTES
+          #   value: "true"
         resources:
           limits:
             memory: 200Mi
