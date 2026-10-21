@@ -411,6 +411,21 @@
   @type datadog
   @id out_datadog
   api_key "#{ENV['DD_API_KEY']}"
+  site "#{ENV['DD_SITE'] || 'datadoghq.com'}"
+  host "#{ENV['DD_LOGS_HOST'] || use_nil}"
+  dd_hostname "#{ENV['DD_HOSTNAME'] || ENV['K8S_NODE_NAME'] || use_nil}"
+  dd_source "#{ENV['DD_SOURCE'] || use_nil}"
+  service "#{ENV['DD_SERVICE'] || use_nil}"
+  dd_tags "#{ENV['DD_TAGS'] || use_nil}"
+  max_retries "#{ENV['DD_MAX_RETRIES'] || '3'}"
+  <buffer>
+    @type file
+    path /var/log/fluentd-buffers/datadog.buffer
+    flush_interval "#{ENV['DD_BUFFER_FLUSH_INTERVAL'] || '5s'}"
+    chunk_limit_size "#{ENV['DD_BUFFER_CHUNK_LIMIT_SIZE'] || '2M'}"
+    retry_max_interval "#{ENV['DD_BUFFER_RETRY_MAX_INTERVAL'] || '30'}"
+    retry_forever true
+  </buffer>
 </match>
 
 <% end %>
